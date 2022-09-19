@@ -29,19 +29,32 @@ Standard mapping with bowtie2. "GENOME" points to your favorite bowtie genome in
 ```bash
 bowtie2 -p 8 -X 2000 -3 1 -x GENOME -1 READ1 -2 READ2 2> LOG | samtools view -bS - > OUTBAM
 ```
--------- TBC
 
 ## Step 3. Quality filtering
 
+After mapping, the BAM file is filtered for low quality mapping reads, unwanted chromosomes and reads with failed or ambigous barcodes. The output is a sorted BAM file.
+
+### Drosophila
+
 ```bash
-samtools view -h -f3 -F12 -q10 INBAM | grep -v '[0-9]'$'\t'chrM | grep -v '[0-9]'$'\t'chrU | grep -v _CTF_ | grep -v _AMBIG_ | samtools view -Su - | samtools sort -@ 8 - -T temp -o OUTBAM
+samtools view -h -f3 -F12 -q10 INBAM | grep -v '[0-9]'$'\t'chrM | grep -v '[0-9]'$'\t'chrU | grep -v _CTF_ | grep -v _AMBIG_ | samtools view -Su - | samtools sort -@ 8 - -T temp -o OUTBAM; samtools index OUTBAM
+```
+
+### Human
+
+```bash
+samtools view -h -f3 -F12 -q10 INBAM | grep -v MT | grep -v CHR_ | grep -v KI | grep -v GL | grep -v _CTF_ | grep -v _AMBIG_ | samtools view -Su - | samtools sort -@ 8 - -T temp -o OUTBAM; samtools index OUTBAM
 ```
 
 ## Step 4. Deduplication
 
+Duplicate reads are removed for each cell barcode.
+
 ```bash
-python sc_atac_true_dedup.py INBAM OUTBAM
+python sc_atac_true_dedup.py INBAM OUTBAM; samtools index OUTBAM
 ```
+
+-------- TBC
 
 ## Step 5. Count matrix
 
