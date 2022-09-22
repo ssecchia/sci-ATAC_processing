@@ -92,6 +92,8 @@ nohup python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam &
 
 ## Step 7. Count matrix generation
 
+Reads are counted by cell and by region specified in the bed file. The ouput is a tab-delimited count matrix of regions (rows) by cells (columns).
+
 ```bash
-python sc_atac_bam2matrix_SS.py -B INBAM -I INDEX -O OUTDIR -P PREFIX -C "auto" -W BED
+python sc_atac_window_counter.py INBAM INDEXTABLE INBED OUTFILE [Include sites with no reads? (True/False)]
 ```
