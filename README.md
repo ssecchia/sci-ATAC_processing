@@ -79,7 +79,7 @@ python sc_atac_barcode_read_counter.py INBAM INDEXTABLE OUTFILE
 Barcodes that exist in the experiment and that are above the specified cutoff are determined to be cells. The script requires the same PREFIX used for the output report above. The cutoff parameter can be either a numeric value (ex. 500, it retains cells > 500 reads) or "auto", in which case a cutoff based on mixture modelling is applied (using package mclust). The cutoff is applied equally to any condition / sample present in the experiment. The output is a new index table containing only the barcodes surviving the cutoff and a .pdf file showing the read count distribution per condition / sample.
 
 ```bash
-Rscript sc_atac_cell_cutoff.R PREFIX CUTOFF &
+Rscript sc_atac_cell_cutoff.R PREFIX CUTOFF
 ```
 
 ## Step 6. Library deconvolution
@@ -87,7 +87,7 @@ Rscript sc_atac_cell_cutoff.R PREFIX CUTOFF &
 New BAM files, retaining only the barcodes identified as cells above, are generated per condition / sample.
 
 ```bash
-nohup python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam &
+python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam
 ```
 
 ## Step 7. Count matrix generation
@@ -95,5 +95,5 @@ nohup python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam &
 Reads are counted by cell and by region specified in the bed file. The ouput is a tab-delimited count matrix of regions (rows) by cells (columns).
 
 ```bash
-python sc_atac_window_counter.py INBAM INDEXTABLE INBED OUTFILE [Include sites with no reads? (True/False)]
+python sc_atac_window_counter.py INBAM INDEXTABLE INBED OUTFILE [Include sites with no reads (True/False)]
 ```
