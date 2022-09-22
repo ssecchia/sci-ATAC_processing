@@ -8,7 +8,7 @@ Also please note that while this repository is public, it is intended for intern
 
 The starting point of this pipeline are the sequencing FASTQ files for READ1 and READ2. Sequencing is performed with four custom primers, two for READ1 and READ2 and two dedicated primers for reading INDEX1 and INDEX2. Our sequencing facility normally performs the bcl2toFASTQ convertion, and the indexes are added to the name of each read. Before starting, confirm that the two indexes (18 bp each) are correctly reported in the read name and separated by the symbol "+".
 
-This pipeline was written for Python2, and it won't work if you are using Python3. Moreover several libraries are required, therefore I suggest creating a dedicated conda environment. I provide a .yml file from which you should be able to recreate the conda environment I use. Make sure to activate the conda enrinment before starting.
+This pipeline was written for Python2, and it won't work if you are using Python3. Moreover several libraries are required, therefore I suggest creating a dedicated conda environment. I provide a .yml file from which you should be able to recreate the conda environment I use. Make sure to activate the conda environment before starting.
 
 ```bash
 conda env create --prefix /path/yourenvironmentname/ --file sciATAC.yml
