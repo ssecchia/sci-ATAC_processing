@@ -56,9 +56,41 @@ Duplicate reads are removed for each cell barcode.
 python sc_atac_true_dedup.py INBAM OUTBAM; samtools index OUTBAM
 ```
 
--------- TBC
+## Step 5. Cell calling
 
-## Step 5. Count matrix
+In this step, the barcodes that exist in the experiment are retrieved and used together with a read count based cutoff to call cells.
+
+### Generate index table of experiment barcodes
+
+```bash
+TBC
+```
+
+### Count reads per barcode present in the experiment
+
+Using the deduplicated BAM generated above, reads are counted for each barcode. The output is a tab-delimited text file which reports, for each barcode, the read count and the condition / sample assignment (barcodes that don't exist in the experiment are labelled as 'bkgd').
+
+```bash
+python sc_atac_barcode_read_counter.py INBAM INDEXTABLE OUTFILE
+```
+
+### Read count cutoff
+
+Barcodes that exist in the experiment and that are above the specified cutoff are determined to be cells. The script requires the same PREFIX used for the output report above. The cutoff parameter can be either a numeric value (ex. 500, it retains cells > 500 reads) or "auto", in which case a cutoff based on mixture modelling is applied (using package mclust). The cutoff is applied equally to any condition / sample present in the experiment. The output is a new index table containing only the barcodes surviving the cutoff and a .pdf file showing the read count distribution per condition / sample.
+
+```bash
+Rscript sc_atac_cell_cutoff.R PREFIX CUTOFF &
+```
+
+## Step 6. Library deconvolution
+
+New BAM files, retaining only the barcodes identified as cells above, are generated per condition / sample.
+
+```bash
+nohup python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam &
+```
+
+## Step 7. Count matrix generation
 
 ```bash
 python sc_atac_bam2matrix_SS.py -B INBAM -I INDEX -O OUTDIR -P PREFIX -C "auto" -W BED
