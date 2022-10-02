@@ -62,8 +62,10 @@ In this step, the barcodes that exist in the experiment are retrieved and used t
 
 ### Generate index table of experiment barcodes
 
+All possible combinations of Tn5 and PCR indexes used in the experiment are generated. The INPATH must lead to the location of the index files (pcr_P5.txt, pcr_P7.txt, tn5_i5.txt, tn5_i7.txt). The sample and plate lists must be R objects saved in R data format (.rds). The output are two tab-delimited text files listing the barcodes and the sample / plate assignment.
+
 ```bash
-TBC
+Rscript indextable_generator.R INPATH SAMPLELIST PLATELIST OUTPATH PREFIX
 ```
 
 ### Count reads per barcode present in the experiment
@@ -92,7 +94,7 @@ python sc_atac_library_deconvoluter.py INBAM INDEXTABLE OUTPREFIX .bam
 
 ## Step 7. Count matrix generation
 
-Reads are counted by cell and by region specified in the bed file. The ouput is a tab-delimited count matrix of regions (rows) by cells (columns).
+Reads are counted by cell and by region specified in the BED file. The ouput is a tab-delimited count matrix of regions (rows) by cells (columns).
 
 ```bash
 python sc_atac_window_counter.py INBAM INDEXTABLE INBED OUTFILE [Include sites with no reads (True/False)]
