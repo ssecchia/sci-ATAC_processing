@@ -1,0 +1,10 @@
+# Tn5 indexes on the i5 end (DO NOT need to be reverse complemented to match sequenced reads)
+row	index
+A	TATAGCCT 
+B	ATAGAGGC 
+C	CCTATCCT 
+D	GGCTCTGA 
+E	AGGCGAAG 
+F	TAATCTTA 
+G	CAGGACGT 
+H	GTACTGAC 
