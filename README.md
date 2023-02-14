@@ -1,8 +1,8 @@
 #  sci-ATAC-seq processing pipeline
 
-Please note that most of the code here is taken directly from Darren Cusanovich's fly-atac repository: https://github.com/shendurelab/fly-atac, all credits go to the respective author(s). I made minor changes to adapt the scripts to our cluster environment.
+Please note that a lot of the code here is taken directly from Darren Cusanovich's fly-atac repository: https://github.com/shendurelab/fly-atac, all credits go to the respective author(s). Most of the changes I made are intended for integration with our pipelines and for adaptation to our local cluster environment.
 
-Also please note that while this repository is public, it is intended for internal use by the Furlong lab members.
+Also please note that while this repository is public, it is mainly intended for internal use by the Furlong lab members.
 
 ## Step 0. Preparations
 
